@@ -8,9 +8,9 @@ import {
   asyncToggleUpVoteThreadDetail,
   asyncToggleDownVoteThreadDetail,
   asyncToggleNeutralVoteThreadDetail,
-  asyncToggleUpVoteComment,      // Import baru
-  asyncToggleDownVoteComment,    // Import baru
-  asyncToggleNeutralVoteComment, // Import baru
+  asyncToggleUpVoteComment,
+  asyncToggleDownVoteComment,
+  asyncToggleNeutralVoteComment,
 } from '../states/threadDetail/action';
 
 function DetailPage() {
@@ -39,7 +39,7 @@ function DetailPage() {
     dispatch(asyncToggleNeutralVoteThreadDetail());
   };
 
-  // Handler untuk komentar
+
   const onUpVoteComment = (commentId) => {
     dispatch(asyncToggleUpVoteComment(commentId));
   };

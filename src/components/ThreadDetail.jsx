@@ -7,7 +7,7 @@ import CommentItem from './CommentItem';
 import CommentInput from './CommentInput';
 
 function ThreadDetail({
-  title, // 'id' dihapus dari sini
+  title,
   body,
   category,
   createdAt,
@@ -75,7 +75,7 @@ function ThreadDetail({
 }
 
 ThreadDetail.propTypes = {
-  // id: PropTypes.string.isRequired, // Hapus validasi id
+  
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
@@ -92,7 +92,7 @@ ThreadDetail.propTypes = {
   downVoteThreadDetail: PropTypes.func.isRequired,
   neutralVoteThreadDetail: PropTypes.func.isRequired,
   addComment: PropTypes.func.isRequired,
-  upVoteComment: PropTypes.func, // Opsional jika belum diimplementasi
+  upVoteComment: PropTypes.func,
   downVoteComment: PropTypes.func,
   neutralVoteComment: PropTypes.func,
 };

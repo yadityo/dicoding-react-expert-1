@@ -1,12 +1,3 @@
-/* Detail Page Wrapper */
-.detail-page {
-  max-width: 700px;
-  margin: 32px auto;
-  padding: 0 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 
 :root {
@@ -32,12 +23,22 @@ body {
   color: var(--text-primary);
 }
 
+/* Detail Page Wrapper */
+.detail-page {
+  max-width: 800px; /* Diperlebar sedikit agar konsisten */
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 /* App Layout */
 .app-container {
   max-width: 800px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 main {
@@ -49,6 +50,7 @@ main {
 .navigation {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 16px;
   background-color: var(--card-bg);
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -105,9 +107,9 @@ main {
 }
 
 .login-page__hero h1, .register-page__hero h1 {
-    font-size: 3rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
 }
 
 .login-input, .register-input {
@@ -139,9 +141,10 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #3e546a;
+  background-color: #3e546a;
 }
 
+/* Thread List Item */
 .thread-item {
   background: var(--card-bg);
   padding: 24px;
@@ -151,7 +154,7 @@ button[type="submit"]:hover {
 }
 
 .thread-item__header {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 .thread-item__category {
@@ -167,7 +170,7 @@ button[type="submit"]:hover {
 }
 
 .thread-item__title {
-    margin: 8px 0;
+  margin: 8px 0;
 }
 
 .thread-item__title a {
@@ -179,7 +182,7 @@ button[type="submit"]:hover {
 }
 
 .thread-item__title a:hover {
-    color: var(--accent);
+  color: var(--accent);
 }
 
 .thread-item__body-content {
@@ -222,13 +225,13 @@ button[type="submit"]:hover {
 }
 
 .thread-item__buttons button:hover {
-    color: var(--primary);
+  color: var(--primary);
 }
 
 .thread-item__comment-count {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .thread-item__owner {
@@ -244,9 +247,10 @@ button[type="submit"]:hover {
   object-fit: cover;
 }
 
+/* Leaderboards */
 .leaderboards-page h2 {
-    margin-bottom: 24px;
-    color: var(--primary);
+  margin-bottom: 24px;
+  color: var(--primary);
 }
 
 .leaderboards-list {
@@ -276,11 +280,11 @@ button[type="submit"]:hover {
 }
 
 .leaderboard-item:hover {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
 
 .leaderboard-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .leaderboard-item__user-info {
@@ -297,8 +301,8 @@ button[type="submit"]:hover {
 }
 
 .leaderboard-item__user-info p {
-    font-weight: 600;
-    font-size: 16px;
+  font-weight: 600;
+  font-size: 16px;
 }
 
 .leaderboard-item__score {
@@ -306,11 +310,13 @@ button[type="submit"]:hover {
   font-weight: 700;
   color: var(--primary);
 }
+
 /* Loading Bar Customization */
 .loading {
-    position: sticky;
-    top: 0;
-    z-index: 100;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+} /* <-- PERBAIKAN 1: Menambahkan kurung tutup yang hilang */
 
 /* Thread Detail */
 .thread-detail {
@@ -321,140 +327,191 @@ button[type="submit"]:hover {
 }
 
 .thread-detail h2 {
-    font-size: 2rem;
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: var(--primary);
+}
+
+.thread-detail__body {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.thread-detail__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+
+.thread-detail__buttons {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.thread-detail__buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+}
+
+.thread-detail__buttons button:hover {
+    color: var(--primary);
+}
+
+.thread-detail__owner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.thread-detail__owner img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Comments */
+.thread-detail__comments h3 {
     margin-bottom: 16px;
     color: var(--primary);
 }
 
-.thread-detail__body {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 24px;
-}
-
-.thread-detail__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 24px;
-    margin-bottom: 24px;
-}
-
-.thread-detail__owner {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.thread-detail__owner img {
-    width: 32px;
-    height: 32px;
-}
-
-.thread-detail__content {
-  background: var(--card-bg);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  padding: 24px;
+.comment-input {
   margin-bottom: 32px;
 }
 
-/* Comments */
-.comment-input {
-    margin-bottom: 32px;
+.comment-input textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  min-height: 100px;
+  font-family: inherit;
+  margin-bottom: 12px;
+  resize: vertical;
 }
 
-.comment-input textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    min-height: 100px;
-    font-family: inherit;
-    margin-bottom: 12px;
-    resize: vertical;
+.comment-input button {
+  padding: 10px 20px;
 }
 
 .comment-item {
-    border-bottom: 1px solid #eee;
-    padding: 16px 0;
+  border-bottom: 1px solid #eee;
+  padding: 16px 0;
 }
 
 .comment-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .comment-item__header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
 }
 
 .comment-item__owner {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .comment-item__owner img {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .comment-item__posted-at {
-    font-size: 0.9rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.comment-item__content {
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.comment-item__footer button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-right: 16px;
+    display: inline-flex;
+}
+
+.comment-item__footer button:hover {
+    color: var(--primary);
 }
 
 /* Add Thread Page */
 .add-thread-page h2 {
-    margin-bottom: 24px;
-    color: var(--primary);
+  margin-bottom: 24px;
+  color: var(--primary);
 }
 
 .thread-input {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .thread-input input, 
 .thread-input textarea {
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 16px;
-    font-family: inherit;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: inherit;
 }
 
-    min-height: 200px;
-    resize: vertical;
+/* PERBAIKAN 2: Memperbaiki selector textarea yang terputus */
+.thread-input textarea {
+  min-height: 200px;
+  resize: vertical;
 }
 
 /* Floating Action Button (FAB) */
 .homepage__action {
-    position: fixed;
-    bottom: 32px;
-    right: 32px;
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
 }
 
 .action-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 64px;
-    background-color: var(--primary);
-    color: white;
-    border-radius: 50%;
-    font-size: 24px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: transform 0.2s, background-color 0.2s;
-    text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 50%;
+  font-size: 24px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s, background-color 0.2s;
+  text-decoration: none;
 }
 
 .action-button:hover {
-    transform: scale(1.1);
-    background-color: var(--accent);
+  transform: scale(1.1);
+  background-color: var(--accent);
 }

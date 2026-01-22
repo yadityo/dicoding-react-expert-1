@@ -5,7 +5,7 @@ const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
   TOGGLE_LIKE_THREAD_DETAIL: 'TOGGLE_LIKE_THREAD_DETAIL',
-  TOGGLE_LIKE_COMMENT: 'TOGGLE_LIKE_COMMENT', // Tipe baru
+  TOGGLE_LIKE_COMMENT: 'TOGGLE_LIKE_COMMENT',
 };
 
 function receiveThreadDetailActionCreator(threadDetail) {
@@ -28,7 +28,7 @@ function toggleLikeThreadDetailActionCreator({ userId, voteType }) {
   };
 }
 
-// Action Creator baru untuk komentar
+
 function toggleLikeCommentActionCreator({ commentId, userId, voteType }) {
   return {
     type: ActionType.TOGGLE_LIKE_COMMENT,
@@ -66,7 +66,7 @@ function asyncCreateComment({ content }) {
   };
 }
 
-// Thread Votes
+
 function asyncToggleUpVoteThreadDetail() {
   return async (dispatch, getState) => {
     const { authUser, threadDetail } = getState();
@@ -105,7 +105,7 @@ function asyncToggleNeutralVoteThreadDetail() {
   };
 }
 
-// Comment Votes (Fungsi Baru)
+
 function asyncToggleUpVoteComment(commentId) {
   return async (dispatch, getState) => {
     const { authUser, threadDetail } = getState();
@@ -154,7 +154,7 @@ export {
   asyncToggleUpVoteThreadDetail,
   asyncToggleDownVoteThreadDetail,
   asyncToggleNeutralVoteThreadDetail,
-  asyncToggleUpVoteComment,      // Export
-  asyncToggleDownVoteComment,    // Export
-  asyncToggleNeutralVoteComment, // Export
+  asyncToggleUpVoteComment,
+  asyncToggleDownVoteComment,
+  asyncToggleNeutralVoteComment,
 };

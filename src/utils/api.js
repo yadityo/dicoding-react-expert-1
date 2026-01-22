@@ -123,7 +123,7 @@ const api = (() => {
     return responseJson.data.vote;
   }
 
-  // --- TAMBAHAN UNTUK KOMENTAR ---
+
   async function toggleUpVoteComment(threadId, commentId) {
     const response = await _fetchws(`${BASE_URL}/threads/${threadId}/comments/${commentId}/up-vote`, { method: 'POST' });
     const responseJson = await response.json();
@@ -170,9 +170,9 @@ const api = (() => {
     toggleUpVoteThread,
     toggleDownVoteThread,
     toggleNeutralVoteThread,
-    toggleUpVoteComment,      // Export baru
-    toggleDownVoteComment,    // Export baru
-    toggleNeutralVoteComment, // Export baru
+    toggleUpVoteComment,
+    toggleDownVoteComment,
+    toggleNeutralVoteComment,
     getLeaderboards,
   };
 })();

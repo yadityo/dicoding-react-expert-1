@@ -5,7 +5,7 @@ import Loading from './components/Loading';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
-import LeaderboardsPage from './pages/LeaderboardsPage'; // 1. Import ini
+import LeaderboardsPage from './pages/LeaderboardsPage';
 import AddThreadPage from './pages/AddThreadPage';
 import DetailPage from './pages/DetailPage';
 import Navigation from './components/Navigation';

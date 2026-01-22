@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ThreadItem from './ThreadItem';
-import { threadItemShape } from '../utils'; // Import dari utils
+import { threadItemShape } from '../utils';
 
 function ThreadList({ threads, upVote, downVote, neutralVote }) {
   return (

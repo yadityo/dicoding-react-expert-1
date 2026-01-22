@@ -28,7 +28,7 @@ function threadDetailReducer(threadDetail = null, action = {}) {
       };
     }
 
-    // LOGIKA BARU UNTUK KOMENTAR
+
     case ActionType.TOGGLE_LIKE_COMMENT: {
       const { commentId, userId, voteType } = action.payload;
       if (!threadDetail) return threadDetail;

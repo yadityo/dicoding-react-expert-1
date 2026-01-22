@@ -9,7 +9,6 @@ const api = (() => {
     return localStorage.getItem('accessToken');
   }
 
-  // Contoh fungsi fetch with auth
   async function _fetchws(url, options = {}) {
     return fetch(url, {
       ...options,
@@ -20,6 +19,68 @@ const api = (() => {
     });
   }
 
+  async function register({ name, email, password }) {
+    const response = await fetch(`${BASE_URL}/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    const responseJson = await response.json();
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    return responseJson.data.user;
+  }
+
+  async function login({ email, password }) {
+    const response = await fetch(`${BASE_URL}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const responseJson = await response.json();
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    return responseJson.data.token;
+  }
+
+  async function getOwnProfile() {
+    const response = await _fetchws(`${BASE_URL}/users/me`);
+    const responseJson = await response.json();
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    return responseJson.data.user;
+  }
+
+  async function getAllUsers() {
+    const response = await fetch(`${BASE_URL}/users`);
+    const responseJson = await response.json();
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    return responseJson.data.users;
+  }
+
   async function getAllThreads() {
     const response = await fetch(`${BASE_URL}/threads`);
     const responseJson = await response.json();
@@ -28,16 +89,117 @@ const api = (() => {
     if (status !== 'success') {
       throw new Error(message);
     }
+
     return responseJson.data.threads;
   }
-  
-  // ... Buat fungsi lain: login, register, seeDetail, createThread, dll.
-  
+
+  async function getThreadDetail(id) {
+    const response = await fetch(`${BASE_URL}/threads/${id}`);
+    const responseJson = await response.json();
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    return responseJson.data.detailThread;
+  }
+
+  async function createThread({ title, body, category = '' }) {
+    const response = await _fetchws(`${BASE_URL}/threads`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title, body, category }),
+    });
+
+    const responseJson = await response.json();
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    return responseJson.data.thread;
+  }
+
+  async function createComment({ threadId, content }) {
+    const response = await _fetchws(`${BASE_URL}/threads/${threadId}/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ content }),
+    });
+
+    const responseJson = await response.json();
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    return responseJson.data.comment;
+  }
+
+  async function toggleUpVoteThread(id) {
+    const response = await _fetchws(`${BASE_URL}/threads/${id}/up-vote`, {
+      method: 'POST',
+    });
+    const responseJson = await response.json();
+    const { status, message } = responseJson;
+    if (status !== 'success') throw new Error(message);
+    return responseJson.data.vote;
+  }
+
+  async function toggleDownVoteThread(id) {
+    const response = await _fetchws(`${BASE_URL}/threads/${id}/down-vote`, {
+      method: 'POST',
+    });
+    const responseJson = await response.json();
+    const { status, message } = responseJson;
+    if (status !== 'success') throw new Error(message);
+    return responseJson.data.vote;
+  }
+
+  async function toggleNeutralVoteThread(id) {
+    const response = await _fetchws(`${BASE_URL}/threads/${id}/neutral-vote`, {
+      method: 'POST',
+    });
+    const responseJson = await response.json();
+    const { status, message } = responseJson;
+    if (status !== 'success') throw new Error(message);
+    return responseJson.data.vote;
+  }
+
+  async function getLeaderboards() {
+    const response = await fetch(`${BASE_URL}/leaderboards`);
+    const responseJson = await response.json();
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    return responseJson.data.leaderboards;
+  }
+
   return {
     putAccessToken,
     getAccessToken,
+    register,
+    login,
+    getOwnProfile,
+    getAllUsers,
     getAllThreads,
-    // export fungsi lainnya
+    getThreadDetail,
+    createThread,
+    createComment,
+    toggleUpVoteThread,
+    toggleDownVoteThread,
+    toggleNeutralVoteThread,
+    getLeaderboards,
   };
 })();
 

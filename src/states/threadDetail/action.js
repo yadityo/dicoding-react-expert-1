@@ -5,6 +5,7 @@ const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
   TOGGLE_LIKE_THREAD_DETAIL: 'TOGGLE_LIKE_THREAD_DETAIL',
+  TOGGLE_LIKE_COMMENT: 'TOGGLE_LIKE_COMMENT', // Tipe baru
 };
 
 function receiveThreadDetailActionCreator(threadDetail) {
@@ -27,6 +28,14 @@ function toggleLikeThreadDetailActionCreator({ userId, voteType }) {
   };
 }
 
+// Action Creator baru untuk komentar
+function toggleLikeCommentActionCreator({ commentId, userId, voteType }) {
+  return {
+    type: ActionType.TOGGLE_LIKE_COMMENT,
+    payload: { commentId, userId, voteType },
+  };
+}
+
 function asyncReceiveThreadDetail(threadId) {
   return async (dispatch) => {
     dispatch(showLoading());
@@ -42,14 +51,12 @@ function asyncReceiveThreadDetail(threadId) {
   };
 }
 
-
 function asyncCreateComment({ content }) {
   return async (dispatch, getState) => {
     dispatch(showLoading());
     const { threadDetail } = getState();
     try {
       await api.createComment({ threadId: threadDetail.id, content });
-
       dispatch(asyncReceiveThreadDetail(threadDetail.id));
     } catch (error) {
       alert(error.message);
@@ -59,12 +66,11 @@ function asyncCreateComment({ content }) {
   };
 }
 
-
+// Thread Votes
 function asyncToggleUpVoteThreadDetail() {
   return async (dispatch, getState) => {
     const { authUser, threadDetail } = getState();
     dispatch(toggleLikeThreadDetailActionCreator({ userId: authUser.id, voteType: 1 }));
-
     try {
       await api.toggleUpVoteThread(threadDetail.id);
     } catch (error) {
@@ -78,7 +84,6 @@ function asyncToggleDownVoteThreadDetail() {
   return async (dispatch, getState) => {
     const { authUser, threadDetail } = getState();
     dispatch(toggleLikeThreadDetailActionCreator({ userId: authUser.id, voteType: -1 }));
-
     try {
       await api.toggleDownVoteThread(threadDetail.id);
     } catch (error) {
@@ -92,9 +97,47 @@ function asyncToggleNeutralVoteThreadDetail() {
   return async (dispatch, getState) => {
     const { authUser, threadDetail } = getState();
     dispatch(toggleLikeThreadDetailActionCreator({ userId: authUser.id, voteType: 0 }));
-
     try {
       await api.toggleNeutralVoteThread(threadDetail.id);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+}
+
+// Comment Votes (Fungsi Baru)
+function asyncToggleUpVoteComment(commentId) {
+  return async (dispatch, getState) => {
+    const { authUser, threadDetail } = getState();
+    dispatch(toggleLikeCommentActionCreator({ commentId, userId: authUser.id, voteType: 1 }));
+    try {
+      await api.toggleUpVoteComment(threadDetail.id, commentId);
+    } catch (error) {
+      alert(error.message);
+      dispatch(toggleLikeCommentActionCreator({ commentId, userId: authUser.id, voteType: 0 }));
+    }
+  };
+}
+
+function asyncToggleDownVoteComment(commentId) {
+  return async (dispatch, getState) => {
+    const { authUser, threadDetail } = getState();
+    dispatch(toggleLikeCommentActionCreator({ commentId, userId: authUser.id, voteType: -1 }));
+    try {
+      await api.toggleDownVoteComment(threadDetail.id, commentId);
+    } catch (error) {
+      alert(error.message);
+      dispatch(toggleLikeCommentActionCreator({ commentId, userId: authUser.id, voteType: 0 }));
+    }
+  };
+}
+
+function asyncToggleNeutralVoteComment(commentId) {
+  return async (dispatch, getState) => {
+    const { authUser, threadDetail } = getState();
+    dispatch(toggleLikeCommentActionCreator({ commentId, userId: authUser.id, voteType: 0 }));
+    try {
+      await api.toggleNeutralVoteComment(threadDetail.id, commentId);
     } catch (error) {
       alert(error.message);
     }
@@ -111,4 +154,7 @@ export {
   asyncToggleUpVoteThreadDetail,
   asyncToggleDownVoteThreadDetail,
   asyncToggleNeutralVoteThreadDetail,
+  asyncToggleUpVoteComment,      // Export
+  asyncToggleDownVoteComment,    // Export
+  asyncToggleNeutralVoteComment, // Export
 };

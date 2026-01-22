@@ -8,6 +8,9 @@ import {
   asyncToggleUpVoteThreadDetail,
   asyncToggleDownVoteThreadDetail,
   asyncToggleNeutralVoteThreadDetail,
+  asyncToggleUpVoteComment,      // Import baru
+  asyncToggleDownVoteComment,    // Import baru
+  asyncToggleNeutralVoteComment, // Import baru
 } from '../states/threadDetail/action';
 
 function DetailPage() {
@@ -36,12 +39,25 @@ function DetailPage() {
     dispatch(asyncToggleNeutralVoteThreadDetail());
   };
 
+  // Handler untuk komentar
+  const onUpVoteComment = (commentId) => {
+    dispatch(asyncToggleUpVoteComment(commentId));
+  };
+
+  const onDownVoteComment = (commentId) => {
+    dispatch(asyncToggleDownVoteComment(commentId));
+  };
+
+  const onNeutralVoteComment = (commentId) => {
+    dispatch(asyncToggleNeutralVoteComment(commentId));
+  };
+
   if (!threadDetail) {
     return null;
   }
 
   return (
-    <section className="detail-page">
+    <div className="detail-page">
       <ThreadDetail
         {...threadDetail}
         authUser={authUser.id}
@@ -49,8 +65,11 @@ function DetailPage() {
         upVoteThreadDetail={onUpVoteThreadDetail}
         downVoteThreadDetail={onDownVoteThreadDetail}
         neutralVoteThreadDetail={onNeutralVoteThreadDetail}
+        upVoteComment={onUpVoteComment}
+        downVoteComment={onDownVoteComment}
+        neutralVoteComment={onNeutralVoteComment}
       />
-    </section>
+    </div>
   );
 }
 

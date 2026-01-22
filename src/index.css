@@ -1,3 +1,12 @@
+/* Detail Page Wrapper */
+.detail-page {
+  max-width: 700px;
+  margin: 32px auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 
 :root {
@@ -86,6 +95,7 @@ main {
 
 /* Login & Register Page */
 .login-page, .register-page {
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -340,6 +350,14 @@ button[type="submit"]:hover {
 .thread-detail__owner img {
     width: 32px;
     height: 32px;
+}
+
+.thread-detail__content {
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  padding: 24px;
+  margin-bottom: 32px;
 }
 
 /* Comments */

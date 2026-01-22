@@ -28,40 +28,34 @@ function App() {
   };
 
   if (isPreload) {
-    return null;
+    return <Loading />;
   }
 
   if (authUser === null) {
     return (
-      <>
-        <Loading />
-        <main>
-          <Routes>
-            <Route path="/*" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-          </Routes>
-        </main>
-      </>
+      <main>
+        <Routes>
+          <Route path="/*" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </main>
     );
   }
 
   return (
-    <>
-      <Loading />
-      <div className="app-container">
-        <header>
-          <Navigation authUser={authUser} signOut={onSignOut} />
-        </header>
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/leaderboards" element={<LeaderboardsPage />} />
-            <Route path="/threads/:id" element={<DetailPage />} />
-              <Route path="/new" element={<AddThreadPage />} />
-          </Routes>
-        </main>
-      </div>
-    </>
+    <div className="app-container">
+      <header>
+        <Navigation authUser={authUser} signOut={onSignOut} />
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/leaderboards" element={<LeaderboardsPage />} />
+          <Route path="/threads/:id" element={<DetailPage />} />
+          <Route path="/new" element={<AddThreadPage />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 

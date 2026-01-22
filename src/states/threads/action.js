@@ -13,47 +13,82 @@ function receiveThreadsActionCreator(threads) {
   };
 }
 
-// ... action creator lain
+function addThreadActionCreator(thread) {
+  return {
+    type: ActionType.ADD_THREAD,
+    payload: { thread },
+  };
+}
 
-// THUNK FUNCTION
-function asyncPopulateUsersAndThreads() {
+
+function toggleLikeThreadActionCreator({ threadId, userId, voteType }) {
+  return {
+    type: ActionType.TOGGLE_LIKE_THREAD,
+    payload: { threadId, userId, voteType },
+  };
+}
+
+function asyncAddThread({ title, body, category = '' }) {
   return async (dispatch) => {
-    // Tampilkan loading
-    dispatch(showLoading()); 
     try {
-      const users = await api.getAllUsers();
-      const threads = await api.getAllThreads();
-
-      dispatch(receiveUsersActionCreator(users));
-      dispatch(receiveThreadsActionCreator(threads));
+      const thread = await api.createThread({ title, body, category });
+      dispatch(addThreadActionCreator(thread));
     } catch (error) {
       alert(error.message);
-    } finally {
-      dispatch(hideLoading());
     }
   };
 }
 
-function asyncToggleLikeThread(threadId) {
-    return async (dispatch, getState) => {
-        const { authUser } = getState();
-        // 1. Optimistic Update UI dulu
-        dispatch(toggleLikeThreadActionCreator({ threadId, userId: authUser.id }));
-        
-        // 2. Request API
-        try {
-            await api.toggleLikeThread(threadId);
-        } catch (error) {
-            alert(error.message);
-            // 3. Rollback state jika error (opsional tapi disarankan)
-            dispatch(toggleLikeThreadActionCreator({ threadId, userId: authUser.id })); 
-        }
+function asyncToggleUpVoteThread(threadId) {
+  return async (dispatch, getState) => {
+    const { authUser } = getState();
+
+    dispatch(toggleLikeThreadActionCreator({ threadId, userId: authUser.id, voteType: 1 })); 
+    try {
+      await api.toggleUpVoteThread(threadId);
+    } catch (error) {
+      alert(error.message);
+
+      dispatch(toggleLikeThreadActionCreator({ threadId, userId: authUser.id, voteType: 0 })); 
     }
+  };
 }
 
-export { 
-    ActionType, 
-    receiveThreadsActionCreator, 
-    asyncPopulateUsersAndThreads,
-    asyncToggleLikeThread
+function asyncToggleDownVoteThread(threadId) {
+  return async (dispatch, getState) => {
+    const { authUser } = getState();
+
+    dispatch(toggleLikeThreadActionCreator({ threadId, userId: authUser.id, voteType: -1 })); 
+    try {
+      await api.toggleDownVoteThread(threadId);
+    } catch (error) {
+      alert(error.message);
+      dispatch(toggleLikeThreadActionCreator({ threadId, userId: authUser.id, voteType: 0 }));
+    }
+  };
+}
+
+function asyncToggleNeutralVoteThread(threadId) {
+  return async (dispatch, getState) => {
+    const { authUser } = getState();
+
+    dispatch(toggleLikeThreadActionCreator({ threadId, userId: authUser.id, voteType: 0 }));
+    try {
+      await api.toggleNeutralVoteThread(threadId);
+    } catch (error) {
+      alert(error.message);
+
+    }
+  };
+}
+
+export {
+  ActionType,
+  receiveThreadsActionCreator,
+  addThreadActionCreator,
+  toggleLikeThreadActionCreator,
+  asyncAddThread,
+  asyncToggleUpVoteThread,
+  asyncToggleDownVoteThread,
+  asyncToggleNeutralVoteThread,
 };

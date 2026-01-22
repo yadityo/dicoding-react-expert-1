@@ -14,7 +14,7 @@ function receiveUsersActionCreator(users) {
 function asyncRegisterUser({ name, email, password }) {
   return async () => {
     try {
-      await api.register({QXname, email, password});
+      await api.register({ name, email, password});
     } catch (error) {
       alert(error.message);
     }

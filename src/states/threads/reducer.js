@@ -4,22 +4,44 @@ function threadsReducer(threads = [], action = {}) {
   switch (action.type) {
     case ActionType.RECEIVE_THREADS:
       return action.payload.threads;
+      
     case ActionType.ADD_THREAD:
       return [action.payload.thread, ...threads];
-    case ActionType.TOGGLE_LIKE_THREAD:
-        // Logic Optimistic UI update local state di sini
-        // Tanpa menunggu API, update dulu array likes-nya
-        return threads.map((thread) => {
-            if (thread.id === action.payload.threadId) {
-                return {
-                    ...thread,
-                    upVotesBy: thread.upVotesBy.includes(action.payload.userId)
-                        ? thread.upVotesBy.filter((id) => id !== action.payload.userId)
-                        : thread.upVotesBy.concat([action.payload.userId])
-                }
-            }
-            return thread;
-        })
+      
+    case ActionType.TOGGLE_LIKE_THREAD: {
+      const { threadId, userId, voteType } = action.payload;
+
+      return threads.map((thread) => {
+        if (thread.id === threadId) {
+          return {
+            ...thread,
+
+            upVotesBy: thread.upVotesBy.filter((id) => id !== userId),
+            downVotesBy: thread.downVotesBy.filter((id) => id !== userId),
+          };
+        }
+        return thread;
+      }).map((thread) => {
+
+        if (thread.id === threadId) {
+           if (voteType === 1) {
+             return {
+               ...thread,
+               upVotesBy: [...thread.upVotesBy, userId],
+             };
+           } 
+           if (voteType === -1) {
+             return {
+               ...thread,
+               downVotesBy: [...thread.downVotesBy, userId],
+             };
+           }
+
+        }
+        return thread;
+      });
+    }
+      
     default:
       return threads;
   }

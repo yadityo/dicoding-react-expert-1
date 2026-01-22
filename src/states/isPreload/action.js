@@ -20,8 +20,9 @@ function asyncPreloadProcess() {
       // preload process
       const authUser = await api.getOwnProfile();
       dispatch(setAuthUserActionCreator(authUser));
-    } catch (error) {
+    } catch {
       // fallback process
+      // 'error' dihapus dari parameter catch karena tidak dipakai
       dispatch(setAuthUserActionCreator(null));
     } finally {
       // end preload process
